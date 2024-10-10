@@ -1,0 +1,21 @@
+
+#routeContainer {
+    width: 100vw;
+    height: 100vh;
+    border: solid blue 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #routerBody{
+    width: 100%;
+    height: 90%;
+    display: flex;
+  
+  }
+  
+  .routerBorder{
+    border: red 2px solid
+  }

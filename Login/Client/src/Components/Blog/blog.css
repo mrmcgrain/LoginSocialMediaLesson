@@ -1,0 +1,196 @@
+#blogModal {
+    width: 100%;
+    height: 300px;
+    background-color: rgba(255, 253, 253, 0.447);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#blogInput {
+    /* border: solid red 2px; */
+    width: 100%;
+    height:200px;
+    display: flex;
+    flex-direction: column;
+    border: solid yellow 2px;
+    margin-bottom: 20px;
+
+}
+
+
+#blog {
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: solid yellow 2px */
+}
+
+#blogCard {
+    /* width: 80%;/ */
+    /* height: 100%; */
+    margin-top: 25px;
+    border: blue 2px solid;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#blogInputUser {
+    height: 15%;
+    width: 100%;
+    border: rgb(147, 147, 24) 2px solid;
+
+}
+
+#blogInputContent {
+    height: 100%;
+    width: 99%;
+    /* border: blue 2px solid; */
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+}
+
+#blogModalFeatures {
+    height: 15%;
+    width: 100%;
+    border: yellow 2px solid;
+}
+
+#blogModalFoot {
+    height: 15%;
+    width: 100%;
+    border: yellow 2px solid;
+    display: flex;
+    justify-content: center;
+}
+
+#blogInputSubmit {
+    width:  100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px
+}
+
+#textArea{
+    width: 98%;
+    height: 152px;
+    margin: 10px;
+}
+
+#BlogCardContainer {
+    margin-bottom: 5%;
+}
+
+
+
+#blogCardTop {
+    height: 10%;
+    width: auto;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 4%;
+    padding-right: 4%;
+
+}
+
+
+#blogCardMid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+
+#blogCardFoot {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+textarea {
+    width: 90%;
+    height: 100%;
+    width: 90%;
+
+}
+
+
+#blogHeader {
+    height: 20%;
+    width: 90%;
+
+
+}
+
+#blogBody {
+    height: 80%;
+    width: 90%;
+
+}
+
+#BlogAdmin {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%
+}
+
+#BlogAuthor {
+    width: 25%;
+    /* margin-left:  15px; */
+    /* border: solid green 2px; */
+    display: flex;
+    align-items: center;
+
+}
+
+#BlogCreatedAt {
+    width: 25%;
+    /* border: solid green 2px; */
+    display: flex;
+    align-items: center;
+
+}
+
+#BlogEdit {
+    width: 25%;
+    /* border: solid green 2px; */
+    display: flex;
+    align-items: center;
+
+}
+
+#BlogDelete {
+    width: 25%;
+    /* border: solid green 2px;  */
+    display: flex;
+    align-items: center;
+}
+
+#EditIsLive{
+    display: flex;
+    justify-content: center;
+
+}
+
+
+#ViewCommentsContainer{
+    border: solid red 2px
+}

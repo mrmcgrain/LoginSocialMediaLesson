@@ -1,0 +1,72 @@
+#Profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding-top: 20px;
+}
+
+#left {
+    border: solid forestgreen 2px;
+    width: 40%;
+    height: 100%;
+    margin-right: 40px;
+
+}
+
+#upLeft {
+    border: solid forestgreen 2px;
+    width: 100%;
+    height: 40%;
+    /* padding: 2%`; */
+}
+
+#midLeft {
+    border: solid forestgreen 2px;
+    margin-top: 25px;
+    width: 100%;
+    height: 50%;
+}
+
+#LowLeft {
+    border: solid forestgreen 2px;
+    margin-top: 25px;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#right {
+    border: solid forestgreen 2px;
+    width: 50%;
+    height: 100%;
+}
+
+#topRight {
+    border: solid forestgreen 2px;
+    width: 100%;
+    height: 10%;
+}
+
+#midRight {
+    border: solid forestgreen 2px;
+    width: 100%;
+    height: 10%;
+}
+
+#rightContent {
+    border: solid forestgreen 2px;
+    margin-top: 25px;
+    width: 100%;
+    height: 100%;
+}
+
+#FriendCardContainers{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* flex-direction: column; */
+}

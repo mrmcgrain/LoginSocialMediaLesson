@@ -1,0 +1,30 @@
+#routerNav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+#logout {
+    height: 40px;
+    width: 100px;
+
+}
+
+#rightPane{
+    width: 10%;
+    display: flex;
+    /* justify-content: center; */
+    margin-left: 10px;
+}
+#logoutPane{
+    width: 10%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#navPane{
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+}

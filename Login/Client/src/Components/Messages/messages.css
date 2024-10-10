@@ -1,0 +1,27 @@
+#Messages {
+display: flex;
+/* flex-direction: column; */
+border: solid yellow 2px;
+height: 100%;
+width: 95%;
+
+}
+
+
+#chats{
+    width: 25%;
+    height: 100%;
+
+    border: solid blue 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#messageContent{
+    height: 100%;
+    width: 75%;
+    border: solid red 2px;
+
+}

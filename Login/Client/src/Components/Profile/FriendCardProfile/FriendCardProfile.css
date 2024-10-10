@@ -1,0 +1,18 @@
+#FriendCardProfile {
+    border: red 2px solid;
+    width: 30%;
+    height: 50%;
+    margin: 10px
+}
+
+#img {
+    height: 80%;
+    border: solid yellow 1px;
+}
+
+#lower{
+    height: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

@@ -1,0 +1,31 @@
+#AddComment{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* margin-left: 20px; */
+    justify-content: center;
+    align-items: center;
+}
+
+
+#textArea2{
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+/* padding: 2%; */
+}
+
+
+
+
+
+#submit{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#addCommentTextArea{
+    height: 50px;
+    width: 90%;
+}

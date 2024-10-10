@@ -1,0 +1,20 @@
+#centerContainer {
+    width: 60%;
+    height: auto;
+    overflow: scroll;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    /* margin-bottom: 20px; */
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+}
