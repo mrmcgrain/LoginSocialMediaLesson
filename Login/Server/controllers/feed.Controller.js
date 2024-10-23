@@ -1,7 +1,7 @@
 const User = require("../models/user.model");
 const Feed = require("../models/feed.model")
 const mongoose = require("mongoose");
-const JWT = require("jsonwebtoken")
+const JWT = require("jsonwebtoken");
 
 module.exports = {
 
@@ -31,19 +31,33 @@ module.exports = {
             })
     },
 
+
+
+
     addLike: (req, res) => {
-        console.log("addLike", req.params.id)
-        // still need to track who has liked in a [] so they can not vote twce
-        Feed.findByIdAndUpdate({
-            _id: req.params.id
-        },
-            { $inc: { likes: 1 } }
-        )
+        console.log("addLike", req.params)
+
+        Feed.findById(req.params.id)
             .then(found => {
                 console.log(found)
-                // found.likes ++
-                // found.save
-                // res.json(found)
+                if (found.liked.includes(req.params.user)) {
+                    console.log("USER ALREADY LIKED")
+
+                    found.liked = found.liked.filter((item) => item !== req.params.user)
+                    found.likes -= 1
+                    found.save()
+                    //  decremet the number
+
+                } else {
+                    console.log("USER  LIKED")
+                    // push user Id into [ ] 
+                    found.liked.push(req.params.user)
+                    found.likes += 1
+                    found.save()
+                    //  inc  likes
+
+                }
+
             })
     },
 
@@ -57,6 +71,38 @@ module.exports = {
                 found.save()
             })
             .catch(err => console.log(err))
+    },
+
+    addComment: (req, res) => {
+        console.log("add com", req.body)
+
+        Feed.findById(req.body.OgFeed)
+            .then(found => {
+                console.log("addCom", found)
+                found.comments.push(req.body)
+                found.save()
+
+
+
+            })
+
+
+
     }
 }
 
+
+
+
+
+
+
+
+// Feed.findById(req.body.OgFeed)
+// .then(found => {
+//     console.log("found", found)
+
+//     found.comments.push(req.body)
+//     found.save()
+
+// })

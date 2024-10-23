@@ -39,7 +39,7 @@ const BlogCard = ({ item, handleDeleteFeed }) => {
 
     axios({
       method: "get",
-      url: `http://localhost:3002/api/feed/addLike/${item._id}`,
+      url: `http://localhost:3002/api/feed/addLike/${item._id}/${authedUser._id}`,
       withCredentials: true
     })
       .then(res => {
@@ -178,14 +178,11 @@ const BlogCard = ({ item, handleDeleteFeed }) => {
 
 
 
-      {/* <div><p></p></div> */}
-
       <div id="blogCardFoot" className='border'>
 
-        <div onClick={() => handleAddLike()}> {item.likes} like</div>
-        <div onClick={() => handleViewComments()}> view comments  {item.comments.length}</div>
-        <div onClick={() => setComment(!comment)}> add comments</div>
-        {/* <div> add comments</div> */}
+        <button onClick={() => handleAddLike()}> {item.likes} like</button>
+        <button onClick={() => handleViewComments()}> view comments  {item.comments.length}</button>
+        <button onClick={() => setComment(!comment)}> add comments</button>
 
 
       </div>

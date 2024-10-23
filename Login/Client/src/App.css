@@ -55,3 +55,11 @@
 .border {
   border: solid red 2px 
 }
+
+
+@media only screen and  (max-width: 800px){
+  
+  #routerRight {
+    display: none;
+  }
+}

@@ -88,25 +88,14 @@ const Blog = () => {
 
                     <div id="blogInput" >
 
-                        {/* <div> */}
-                        {/* <p onClick={(e) => handleModal(e)}>
-                                Whats on your mind
-                            </p> */}
-                        {/* </div> */}
-                        {/* open modal for content */}
-                        {/* {modal && <BlogModal />} */}
+                
                         <div id="blogInputContent">
-                            <div></div>
+                            <button id="blogInputSubmit" onClick={(e) => handleNewFeedSubmit(e)}> submit</button>
+                         
                             <textarea id="textArea" onChange={(e) => handleFeedChange(e)}
                                 value={newFeed.feedContent}
                                 placeholder="What's on your mind">
                             </textarea>
-
-                            <div>
-                                <button id="blogInputSubmit" onClick={(e) => handleNewFeedSubmit(e)}> submit</button>
-                            </div>
-
-                            {/* <div> video / photo option </div> */}
 
 
                         </div>
@@ -117,6 +106,10 @@ const Blog = () => {
 
                 </div>
                 {/* <br /> */}
+
+<div id='spacer'></div>
+
+
                 <div id="blogBody">
 
                     <br />

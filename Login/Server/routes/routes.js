@@ -7,6 +7,16 @@ const Feed = require("../models/feed.model")
 module.exports = (app) => {
 
     app.get("/test", UserController.testRoute)
+    
+    app.get("/test",(req, res) => {
+        console.log("TEST route HIT!!!")
+        res.json({ msg: "Hello World!" })
+    },)
+
+
+
+
+
 
     app.post("/api/registration", UserController.registration)
 
@@ -28,8 +38,11 @@ module.exports = (app) => {
     app.get("/api/feed/getFeeds", FeedController.getFeeds)
     app.post("/api/feed/createFeed", FeedController.createFeed)
     app.delete("/api/feed/delete/:id", FeedController.deleteFeed)
-    app.get("/api/feed/addLike/:id" , FeedController.addLike)
-    // app.post("/api/feed/addComment/:id" , FeedController.addComment)
+    
+    app.get("/api/feed/addLike/:id/:user" , FeedController.addLike)
+
+    app.post("/api/feed/addComment/:id" , FeedController.addComment)
+
     app.post("/api/feed/editFeed/:id" , FeedController.editFeed)
 
 }

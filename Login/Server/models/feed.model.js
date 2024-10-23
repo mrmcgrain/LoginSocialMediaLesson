@@ -9,6 +9,7 @@ const FeedSchema = new Schema(
     comments: [{}],
     created: Date,
     likes: Number,
+    liked: []
     // img: String
 }
 )
