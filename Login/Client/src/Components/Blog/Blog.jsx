@@ -57,7 +57,15 @@ const Blog = () => {
             withCredentials: true,
         })
             .then(res => {
-                console.log("res", res)
+                console.warn("res", res)
+
+                setAllFeeds(prev => [
+                    ...prev,
+                    res.data
+                ])
+                    console.log("allFEEDS", allFeeds)
+
+
             })
             .catch(err => console.log(err))
 
@@ -81,17 +89,17 @@ const Blog = () => {
     return (
         <>
 
-            {console.log("allFeeds", allFeeds)}
+            {/* {console.log("allFeeds", allFeeds)} */}
             <div id="blog">
 
                 <div id="blogHeader">
 
                     <div id="blogInput" >
 
-                
+
                         <div id="blogInputContent">
                             <button id="blogInputSubmit" onClick={(e) => handleNewFeedSubmit(e)}> submit</button>
-                         
+
                             <textarea id="textArea" onChange={(e) => handleFeedChange(e)}
                                 value={newFeed.feedContent}
                                 placeholder="What's on your mind">
@@ -107,7 +115,7 @@ const Blog = () => {
                 </div>
                 {/* <br /> */}
 
-<div id='spacer'></div>
+                <div id='spacer'></div>
 
 
                 <div id="blogBody">
@@ -117,16 +125,18 @@ const Blog = () => {
                     {allFeeds && allFeeds.length > 0
                         ?
                         (
-                            allFeeds.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()).map((item) => (
-                              
-                              <div id="BlogCardContainer">
+                            allFeeds
+                                .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
+                                .map((item) => (
 
-                                    <BlogCard key={item.id} item={item} handleDeleteFeed={handleDeleteFeed}
-                                    />
-                                    
-                                </div>
-                                
-                            ))
+                                    <div id="BlogCardContainer" key={item.created}>
+                                        {/* {console.log("ITEM", item)} */}
+                                        <BlogCard key={item.created} item={item} handleDeleteFeed={handleDeleteFeed}
+                                        />
+
+                                    </div>
+
+                                ))
                         )
                         :
                         (

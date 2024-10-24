@@ -47,6 +47,7 @@ module.exports = {
                     found.likes -= 1
                     found.save()
                     //  decremet the number
+                    res.json({msg: "USER ALREADY LIKED"})
 
                 } else {
                     console.log("USER  LIKED")
@@ -54,10 +55,10 @@ module.exports = {
                     found.liked.push(req.params.user)
                     found.likes += 1
                     found.save()
+                    res.json({msg: "USER LIKED"})
+
                     //  inc  likes
-
                 }
-
             })
     },
 

@@ -14,9 +14,14 @@ const BlogCard = ({ item, handleDeleteFeed }) => {
 
   const [comment, setComment] = useState(false)
 
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(item.likes)
 
   const [edit, setEdit] = useState(false)
+
+  const [comLength, setComLength] = useState(item.comments.length)
+
+
+  
 
   const handleFeedDelete = (e) => {
     console.log("del, e.tar.id", e.target.id)
@@ -44,6 +49,21 @@ const BlogCard = ({ item, handleDeleteFeed }) => {
     })
       .then(res => {
         console.log("res", res)
+
+          if(res.data.msg === "USER ALREADY LIKED" ){
+
+            setCount(count - 1)
+            console.log("user voted already")
+
+          }else {
+
+            setCount(count + 1)
+            console.log("new vote")
+
+          }
+
+
+        
       })
 
   }
@@ -91,10 +111,20 @@ const BlogCard = ({ item, handleDeleteFeed }) => {
     setEditing(e.target.value)
 
   }
+
+
+const handleViewUpdate = () => {
+  console.log("HANDLE HIT")
+
+  setComLength(comLength + 1)
+}
+
+
+
   return (
 
     <div id="blogCard">
-      {console.warn("editing", editing, item._id)}
+      {/* {console.warn("item", item)} */}
       {/* {console.warn("$$$$$$$$", timeAgo(item.created))} */}
 
       <div id="blogCardTop" className='border'>
@@ -180,18 +210,18 @@ const BlogCard = ({ item, handleDeleteFeed }) => {
 
       <div id="blogCardFoot" className='border'>
 
-        <button onClick={() => handleAddLike()}> {item.likes} like</button>
-        <button onClick={() => handleViewComments()}> view comments  {item.comments.length}</button>
+        <button onClick={() => handleAddLike()}> {count} like</button>
+        <button onClick={() => handleViewComments()}> view comments  {comLength}</button>
         <button onClick={() => setComment(!comment)}> add comments</button>
 
 
       </div>
-      {comment && <AddComment id={item._id} item={item} setComment={setComment} comment={comment} />}
+      {comment && <AddComment handleViewUpdate={handleViewUpdate} id={item._id} item={item} setComment={setComment} comment={comment} />}
       {viewComment &&
         item?.comments.map((obj) => {
           return (
 
-            <ViewComments obj={obj} />
+            <ViewComments key={item._id} obj={obj} />
           )
         })
       }
