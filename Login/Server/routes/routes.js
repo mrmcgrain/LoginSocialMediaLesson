@@ -32,6 +32,11 @@ module.exports = (app) => {
 
     app.put("/api/addFriend/", AuthCheck, UserController.addFriend)
 
+
+    // NEW for img upload
+
+    app.post( "/api/user/updateProfileImg/:id", UserController.updateProfileImg) 
+
     // **********************************
     // Feed routes
 

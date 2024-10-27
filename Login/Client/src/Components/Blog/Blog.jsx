@@ -47,7 +47,10 @@ const Blog = () => {
         e.preventDefault()
 
         console.log("submit hit", newFeed)
-
+        
+        const formData = new FormData();
+        formData.append("what", imageRoute);
+        formData.append("images", selectedFiles[0]);
         // axios with newFeed to server to add to database
         axios({
             method: 'post',
@@ -63,7 +66,7 @@ const Blog = () => {
                     ...prev,
                     res.data
                 ])
-                    console.log("allFEEDS", allFeeds)
+                console.log("allFEEDS", allFeeds)
 
 
             })
@@ -98,6 +101,13 @@ const Blog = () => {
 
 
                         <div id="blogInputContent">
+                            <input id="blogInputFile" 
+                            type="file" 
+                            name="file" 
+                            onChange={(e) => handleNewFeedSubmit(e)}    
+                            className="inputfile" />
+
+
                             <button id="blogInputSubmit" onClick={(e) => handleNewFeedSubmit(e)}> submit</button>
 
                             <textarea id="textArea" onChange={(e) => handleFeedChange(e)}
@@ -129,7 +139,7 @@ const Blog = () => {
                                 .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                                 .map((item) => (
 
-                                    <div id="BlogCardContainer" key={item.created}>
+                                    <div key={item._id} id="BlogCardContainer" >
                                         {/* {console.log("ITEM", item)} */}
                                         <BlogCard key={item.created} item={item} handleDeleteFeed={handleDeleteFeed}
                                         />

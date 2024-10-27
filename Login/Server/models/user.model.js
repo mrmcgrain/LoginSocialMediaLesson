@@ -44,8 +44,9 @@ const UserSchema = new Schema(
         employment: String,
         relationshipStatus: String,
         gender: String,
-        age: String
-
+        age: String,
+        // NEW for img upload
+        profileImg: String, // new for img upload
     }
 )
 const User = mongoose.model("User", UserSchema);

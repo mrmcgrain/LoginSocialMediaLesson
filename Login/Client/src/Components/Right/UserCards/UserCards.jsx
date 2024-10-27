@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom'
 const UserCards = ({ item }) => {
     return (
         <div id="userCards">
-
+            {console.log("ITEM", item)}
             <div id="userCardLeft">
-                <div id="profileImg"></div>
+                <div id="profileImg">
+                    <img id="profileImg" src={item.profileImg} alt="profileImg" />  {/* NEW */}
+
+                </div>
 
             </div>
 

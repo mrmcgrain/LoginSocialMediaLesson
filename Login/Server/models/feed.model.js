@@ -9,8 +9,9 @@ const FeedSchema = new Schema(
     comments: [{}],
     created: Date,
     likes: Number,
-    liked: []
-    // img: String
+    liked: [],
+    // New for img upload
+    img: String
 }
 )
 

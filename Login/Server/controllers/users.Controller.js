@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const JWT = require("jsonwebtoken")
+const path = require("path")    // new for file upload  
 
 module.exports = {
 
@@ -195,7 +196,7 @@ module.exports = {
                                 console.log("pending to approved")
                                 filter2[0].status = "Approved"
                                 userFound.save()
-                                res.json({msg : "friend added"})
+                                res.json({ msg: "friend added" })
                                 // filter2.save()
                                 // socket.emit("addstatus", userFound._id)
                             } else if (filter2[0].status === "Removed") {
@@ -246,104 +247,55 @@ module.exports = {
                     })
             })
     },
-    // addFriend: (req, res) => {
-    //     console.log("###", res.locals.user)
-    //     console.log("reqBd", req.body)
 
-    //     const user = res.locals.user
-    //     console.log("user", user)
-
-    //     User.findById(req.body.id)
-    //         .then(found => {
-    //             console.log("found", found)
-    //             if (found) {
-
-    //                 let filter = found.friends.filter((obj) => obj._id.toString() === user._id.toString())
-    //                 console.log("FILTER", filter)
-
-    //                 if (filter.length) {
-
-    //                     if (filter[0].friend == "Pending") {
-    //                         console.log("requested to approved")
-    //                         filter[0].friend = "Approved"
-    //                         found.save()
-    //                     } else if (filter[0].friend == "Removed") {
-    //                         // filter[0].friend = "Pending"
-    //                         // found.save()
-    //                     } else if
-    //                         (filter[0].friend == "Approved") {
-    //                         console.log("requested to remove")
-    //                         // filter[0].friend = "Removed"
-    //                         // found.save()
-    //                     }
-    //                 }
-    //             }
+    updateProfileImg: (req, res) => {
+        console.log("req.body", req.body, req.files, req.file)
+        console.log("PAR<MAS", req.params)  // req.params.id    
 
 
 
+        if (req.files === null) {   // if no file uploaded
+            return res.status(400).json({ msg: "No file uploaded" })
+        }
+
+        if (req.files) {
+            let image = req.files.images;
+            image.name = image.name.replace(/\s/g, "");
+            image.mv(
+              path.resolve(process.cwd() + `/public/${req.params.id}/profileImg/`, image.name),
+              async (err) => {
+                if (err) {
+                  return res.status(500).send(err);
+                }
+            User.findById(req.params.id)
 
 
-    //             User.findById(user._id)
-    //                 .then(MyUser => {
-    //                     console.log("MyUser", MyUser)
+            .then(found => {   
+                console.log("found$$$$$", found)
+                found.profileImg = `http://localhost:3002/public/${req.params.id}/profileImg/${image.name}`
+                found.save()
+                res.json({ msg: "img uploaded", found })        
+             })
+            
+            
+            
+            
+                }
+              
+            );
 
 
-    //                     if (MyUser) {
-
-    //                         let filter2 = MyUser.friends.filter((obj) => obj._id.toString() === req.body.id.toString())
-    //                         console.log("filter2", filter2)
-    //                         if (filter2.length) {
-
-    //                             if (filter2[0].friend === "Requested") {
-    //                                 console.log("pending to approved")
-    //                                 filter2[0].friend = "Approved"
-    //                                 MyUser.save()
-    //                                 // filter2.save()
-    //                                 // socket.emit("addFriend", userFound._id)
-    //                             } else if (filter2[0].friend === "Removed") {
-    //                                 // filter2[0].friend = 'Requested'
-    //                                 // MyUser.save()
-    //                             } else
-    //                                 if (filter2[0].friend === "Approved") {
-    //                                     console.log("pending to approved")
-    //                                     // filter2[0].friend = "Removed"
-    //                                     // MyUser.save()
-    //                                     // filter2.save()
-    //                                     // socket.emit("addFriend", userFound._id)
-    //                                 }
 
 
-    //                             // } else {
-    //                         } else if (found.friends.filter((obj) => obj._id !== user._id)) {
-
-    //                             const payload1 = {
-    //                                 username: user.username,
-    //                                 _id: user._id,
-    //                                 status: "Requested"
-    //                             }
-
-    //                             found.friends.push(payload1)
-    //                             found.save()
-
-    //                             const payload2 = {
-    //                                 username: found.username,
-    //                                 _id: found._id,
-    //                                 status: "Pending"
-    //                             }
-    //                             MyUser.friends.push(payload2)
-    //                             MyUser.save()
-    //                         }
-    //                     }
-    //                 });
-    //         });
-    // }
+    }
+ 
 }
 
 
 
 
 
-
+}
 
 
 

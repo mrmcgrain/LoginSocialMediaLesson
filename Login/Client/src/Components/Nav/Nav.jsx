@@ -20,8 +20,9 @@ const Nav = () => {
 
 
       <div id="rightPane">
-
-          <p>{`Welcome Back ${authedUser.username}`}</p>
+      <Link to="/Profile">
+          <img id="profileIMG" src={`${authedUser.profileImg}`}></img>
+        </Link>
 
 
       </div>

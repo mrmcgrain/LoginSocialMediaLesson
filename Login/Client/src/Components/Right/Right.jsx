@@ -20,7 +20,8 @@ const Right = ({ children }) => {
 
                 {allUsers && allUsers.map((item) => {
                     return (
-                        <UserCards item={item} />
+                        
+                        <UserCards key={item._id} item={item} />
 
                     )
                 })}
