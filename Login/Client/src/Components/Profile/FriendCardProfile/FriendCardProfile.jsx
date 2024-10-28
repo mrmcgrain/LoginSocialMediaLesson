@@ -10,8 +10,8 @@ const FriendCardProfile = ({ item }) => {
             <div id="FriendCardProfile">
 
                 <div id="img">
-                    img goes here
-                </div>
+                    <img src={`{$item.profileImg}`}>          </img>   
+                        </div>
 
                 <div id="lower">
 

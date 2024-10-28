@@ -83,8 +83,8 @@ const Profile = () => {
 
 
                     <button onClick={(e) => handleUpdateProfileImg(e)}>Update Profile</button>
-               
-               
+
+
                 </div>
 
 
@@ -107,7 +107,9 @@ const Profile = () => {
                             (
                                 authedUser.friends.map((item) => {
                                     return (
-                                        <FriendCardProfile item={item} />
+
+                                        <FriendCardProfile  key={item._id} item={item} />
+
                                     )
                                 })
 

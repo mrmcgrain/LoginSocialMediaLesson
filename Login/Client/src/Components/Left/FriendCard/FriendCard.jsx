@@ -15,7 +15,7 @@ const FriendCard = ({ item }) => {
             <div id="friendCardPic">
 
                 <div id="profileImg">
-
+                    <img src={item.profileImg} alt="profileImg" />  {/* NEW */}
                 </div>
 
             </div>
