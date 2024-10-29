@@ -6,7 +6,7 @@ const ViewComments = ({ obj }) => {
         <>
             <div id="ViewCommentsContainer">
 
-                {console.warn("obj", obj)}
+                {/* {console.warn("obj", obj)} */}
                 <p>{obj.authorName}</p>
                 <p>{obj.created}</p>
                 <p>{obj.comment}</p>

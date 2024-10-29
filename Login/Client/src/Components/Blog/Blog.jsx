@@ -10,6 +10,8 @@ const Blog = () => {
 
     const [allFeeds, setAllFeeds] = useState()
     const [newFeed, setNewFeed] = useState({})
+    // for image upload
+    const [selectedFiles, setSelectedFiles] = useState([])
 
     const { handleModal, modal, authedUser, handleNewFeed } = useData()
 
@@ -42,21 +44,33 @@ const Blog = () => {
 
     }
 
+    // //////////////////
+
+    const handleCollectImg = (e) => {
+        setSelectedFiles(e.target.files)
+    }
+
+
+    // ///////////
+
 
     const handleNewFeedSubmit = (e) => {
         e.preventDefault()
 
         console.log("submit hit", newFeed)
-        
+
         const formData = new FormData();
-        formData.append("what", imageRoute);
+        formData.append("feed", JSON.stringify(newFeed));
         formData.append("images", selectedFiles[0]);
         // axios with newFeed to server to add to database
         axios({
             method: 'post',
             // url: 'http://192.168.0.220:3002/api/feed/createFeed',
             url: 'http://localhost:3002/api/feed/createFeed',
-            data: newFeed,
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
             withCredentials: true,
         })
             .then(res => {
@@ -92,20 +106,21 @@ const Blog = () => {
     return (
         <>
 
-            {/* {console.log("allFeeds", allFeeds)} */}
+            {console.log("selectedFile", selectedFiles)}
+            {console.log("newFeed", newFeed)}
             <div id="blog">
 
                 <div id="blogHeader">
 
                     <div id="blogInput" >
 
-
                         <div id="blogInputContent">
-                            <input id="blogInputFile" 
-                            type="file" 
-                            name="file" 
-                            onChange={(e) => handleNewFeedSubmit(e)}    
-                            className="inputfile" />
+
+                            <input id="blogInputFile"
+                                type="file"
+                                name="file"
+                                onChange={(e) => handleCollectImg(e)}
+                                className="inputfile" />
 
 
                             <button id="blogInputSubmit" onClick={(e) => handleNewFeedSubmit(e)}> submit</button>

@@ -72,7 +72,12 @@ const Profile = () => {
 
                     <br />
 
-                    {authedUser.profileImg ? <img id="profileImg" src={authedUser.profileImg} alt="profileImg" /> : null}
+                    {authedUser.profileImg
+                        ?
+                        <img id="profileImg" src={authedUser.profileImg} alt="profileImg" />
+                        :
+                        null
+                    }
 
                     <br />
 
@@ -108,7 +113,7 @@ const Profile = () => {
                                 authedUser.friends.map((item) => {
                                     return (
 
-                                        <FriendCardProfile  key={item._id} item={item} />
+                                        <FriendCardProfile key={item._id} item={item} />
 
                                     )
                                 })

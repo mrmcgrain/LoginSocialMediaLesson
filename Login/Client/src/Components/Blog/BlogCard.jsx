@@ -12,7 +12,7 @@ const BlogCard = ({ item, handleDeleteFeed }) => {
 
   const { authedUser } = useData()
 
-  const [comment, setComment] = useState(false)
+  const [comment, setComment] = useState(false)  // renders the add comment section
 
   const [count, setCount] = useState(item.likes)
 
@@ -20,8 +20,9 @@ const BlogCard = ({ item, handleDeleteFeed }) => {
 
   const [comLength, setComLength] = useState(item.comments.length)
 
+  const [newComment, setNewComment] = useState(item.comments)  // this is the default state of item.comments that I will use to push a new comment into
 
-  
+
 
   const handleFeedDelete = (e) => {
     console.log("del, e.tar.id", e.target.id)
@@ -119,13 +120,21 @@ const handleViewUpdate = () => {
   setComLength(comLength + 1)
 }
 
+const handleTrickReact = (input) => {
 
+  console.warn("input---", input)
+
+
+
+   
+
+}
 
   return (
 
     <div id="blogCard">
-      {/* {console.warn("item", item)} */}
-      {/* {console.warn("$$$$$$$$", timeAgo(item.created))} */}
+
+      {console.warn("$$$$$$$$", item)}
 
       <div id="blogCardTop" className='border'>
 
@@ -201,9 +210,19 @@ const handleViewUpdate = () => {
         (
           <div id="blogCardMid" className='border'>
 
+           
+           {
+
+            item.img &&
+
+             <img id="feedImage" src={`http://localhost:3002${item.img}`} alt="dead img"></img>
+                     
+                     } 
+           
             <p>{item?.feedContent}</p>
 
-          </div>)
+          </div>
+          )
       }
 
 
@@ -216,12 +235,12 @@ const handleViewUpdate = () => {
 
 
       </div>
-      {comment && <AddComment handleViewUpdate={handleViewUpdate} id={item._id} item={item} setComment={setComment} comment={comment} />}
+      {comment && <AddComment handleTrickReact={handleTrickReact} handleViewUpdate={handleViewUpdate} id={item._id} item={item} setComment={setComment} comment={comment} />}
       {viewComment &&
         item?.comments.map((obj) => {
           return (
 
-            <ViewComments key={item._id} obj={obj} />
+            <ViewComments key={item.created} obj={obj} />
           )
         })
       }

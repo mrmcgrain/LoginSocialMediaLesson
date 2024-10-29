@@ -6,11 +6,11 @@ const FriendCardProfile = ({ item }) => {
 
     return (
         <>
-
+{console.log("$$$$$$$$$$$$", item)}
             <div id="FriendCardProfile">
 
                 <div id="img">
-                    <img src={`{$item.profileImg}`}>          </img>   
+                    <img src={`{$item.profileImg}`}></img>   
                         </div>
 
                 <div id="lower">

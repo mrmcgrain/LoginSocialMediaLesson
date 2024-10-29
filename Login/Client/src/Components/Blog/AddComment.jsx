@@ -3,7 +3,7 @@ import "./addComment.css"
 import { useData } from "../../hooks/context-hook"
 import axios from 'axios'
 
-const AddComment = ({ id, setComment, comment , item, handleViewUpdate}) => {
+const AddComment = ({ id, setComment, comment , item, handleViewUpdate, handleTrickReact}) => {
 
     const [addComment, setAddComment] = useState({})
 
@@ -35,6 +35,7 @@ const AddComment = ({ id, setComment, comment , item, handleViewUpdate}) => {
 
         setComment(!comment)
         handleViewUpdate()
+        handleTrickReact(addComment)
 
     }
 

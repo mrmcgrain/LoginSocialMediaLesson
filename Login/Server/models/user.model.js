@@ -23,7 +23,7 @@ const UserSchema = new Schema(
         password: {
             type: String,
             required: [true, 'Password is required'],
-            unique: true,
+            // unique: true,
         },
         isOnline: Boolean,
         token: String,
@@ -33,7 +33,7 @@ const UserSchema = new Schema(
             first: String,
             last: String,
             _id: mongoose.Schema.Types.ObjectId,
-            status: String, 
+            status: String,
             created: Date
         }],
 

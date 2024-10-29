@@ -3,24 +3,56 @@ const Feed = require("../models/feed.model")
 const mongoose = require("mongoose");
 const JWT = require("jsonwebtoken");
 
+// ////
+const path = require('path')
+
+/////
+
 module.exports = {
 
     getFeeds: (req, res) => {
-        console.log("GET FEED HIT")
+        // console.log("GET FEED HIT")
         Feed.find()
             .then((found) => {
-                console.log("found", found)
+                // console.log("found", found)
                 res.json(found)
             })
     },
 
     createFeed: (req, res) => {
         console.log("req.body", req.body)
-        Feed.create(req.body)
+        console.log("req.body", req.body.feed)
+        console.log("req.body", req.files)
+
+        let feedData;
+
+        feedData = JSON.parse(req.body.feed);
+
+
+        Feed.create(feedData)
             .then(created => {
                 console.log("created", created)
+
+                if (req.files) {
+
+                    let image = req.files.images;
+                    image.name = image.name.replace(/\s/g, "");
+                    image.mv(
+                        path.resolve(process.cwd() + `/public/feed/${created._id}/img/`, image.name)),
+                        async (err) => {
+                            if (err) {
+                                return res.status(500).send(err);
+                            }
+                        }
+
+                    created.img = `/public/feed/${created._id}/img/${image.name}`
+
+                    created.save()
+
+                }
                 res.json(created)
             })
+
     },
 
     deleteFeed: (req, res) => {
@@ -47,7 +79,7 @@ module.exports = {
                     found.likes -= 1
                     found.save()
                     //  decremet the number
-                    res.json({msg: "USER ALREADY LIKED"})
+                    res.json({ msg: "USER ALREADY LIKED" })
 
                 } else {
                     console.log("USER  LIKED")
@@ -55,7 +87,7 @@ module.exports = {
                     found.liked.push(req.params.user)
                     found.likes += 1
                     found.save()
-                    res.json({msg: "USER LIKED"})
+                    res.json({ msg: "USER LIKED" })
 
                     //  inc  likes
                 }

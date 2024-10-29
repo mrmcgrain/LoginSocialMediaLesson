@@ -249,10 +249,8 @@ module.exports = {
     },
 
     updateProfileImg: (req, res) => {
-        console.log("req.body", req.body, req.files, req.file)
+        console.log("req.body", req.body, req.files)
         console.log("PAR<MAS", req.params)  // req.params.id    
-
-
 
         if (req.files === null) {   // if no file uploaded
             return res.status(400).json({ msg: "No file uploaded" })
@@ -269,29 +267,20 @@ module.exports = {
                 }
             User.findById(req.params.id)
 
-
             .then(found => {   
                 console.log("found$$$$$", found)
                 found.profileImg = `http://localhost:3002/public/${req.params.id}/profileImg/${image.name}`
                 found.save()
                 res.json({ msg: "img uploaded", found })        
              })
-            
-            
-            
-            
+                                            
                 }
               
             );
 
-
-
-
     }
  
 }
-
-
 
 
 

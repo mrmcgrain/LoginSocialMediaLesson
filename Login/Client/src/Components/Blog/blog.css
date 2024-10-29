@@ -108,6 +108,7 @@
 #blogCardMid {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: auto;
     width: auto;
@@ -199,3 +200,9 @@ textarea {
     height: 200px;
     border: yellow 2px solid ;
 } */
+
+
+#feedImage {
+    width: 100%;
+    height: 80% ;
+}
