@@ -5,6 +5,10 @@ import "./login.css"
 import { useData } from "../../hooks/context-hook"
 import Registration from '../Registration/Registration'
 
+// 
+import LoginButton from '../Auth0/LoginButton';
+// 
+
 const Login = () => {
 
     const nav = useNavigate()
@@ -92,7 +96,8 @@ const Login = () => {
 
                 )
             }
-
+    
+            <LoginButton />
 
 
         </>

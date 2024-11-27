@@ -1,0 +1,340 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: |
+          cd client
+          npm install
+
+      - name: Run build
+        run: |
+          cd client
+          mkdir dist
+          npm run build
+
+      - name: Archive production artifacts
+        run: |
+          cd client
+          zip -r build.zip ./dist
+          ls -lah
+
+      - name: Transfer to VPS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "${SSH_PRIVATE_KEY}" > private_key.pem
+          chmod 600 private_key.pem
+          scp -o StrictHostKeyChecking=no -i private_key.pem client/build.zip root@89.116.191.98:/root/client/dist/
+          rm private_key.pem
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: SSH into VPS and deploy
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "${SSH_PRIVATE_KEY}" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem root@89.116.191.98 << 'EOF'
+            cd /root/client/dist/
+            ls -lah
+            unzip -o build.zip
+            pm2 stop all
+            pm2 start /root/client/dist/dist
+            
+          EOF
+          rm private_key.pem
+
+# name: CI/CD Pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+      
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+
+#     - name: Set up Node.js
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: '20.x'
+#     - name: Get  directory
+#       run: ls
+
+#     - name: pwd dir
+#       run: pwd
+
+#     - name: Install dependencies
+#       # run: pwd
+#           # cd ~/deployTests/
+#       run: |
+#            cd /home/runner/work/deployTests/deployTests
+#            cd client
+#            ls
+#            npm i 
+
+#     - name: Run build
+#       run: |
+#            cd /home/runner/work/deployTests/deployTests/client
+#            ls
+#            sudo chmod +x /home/runner/work/deployTests/deployTests/client/node_modules/.bin/vite
+#            npm install
+#            npm run build
+
+#           #  chmod +x node_modules/.bin/vite
+
+#     - name: Archive production artifacts
+#       run: zip -r build.zip ./build
+
+#     - name: Transfer to VPS
+#       env:
+#         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#       run: |
+#         echo "${SSH_PRIVATE_KEY}" > private_key.pem
+#         chmod 600 private_key.pem
+#         scp -o StrictHostKeyChecking=no -i private_key.pem build.zip user@your-vps-ip:/path/to/deployment/
+#         rm private_key.pem
+
+#   deploy:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/main'
+
+#     steps:
+#     - name: SSH into VPS and deploy
+#       env:
+#         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#       run: |
+#         echo "${SSH_PRIVATE_KEY}" > private_key.pem
+#         chmod 600 private_key.pem
+#         ssh -o StrictHostKeyChecking=no -i private_key.pem user@your-vps-ip << 'EOF'
+#           cd /path/to/deployment/
+#           unzip -o build.zip
+#           pm2 stop all
+#           pm2 start /path/to/deployment/build
+#         EOF
+#         rm private_key.pem
+
+
+
+# # name: Deploy to VPS
+
+# # on:
+# #   push:
+# #     branches:
+# #       - main
+
+# # jobs:
+# #   deploy:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #     - name: Checkout code
+# #       uses: actions/checkout@v3
+
+# #     - name: Install Node.js
+# #       uses: actions/setup-node@v3
+# #       with:
+# #         node-version: '20.x'
+
+# #     - name: Install dependencies
+# #       run: |
+# #         cd client
+# #         npm install
+
+# #     - name: Build the project
+# #       run: |
+# #         cd client
+# #         npm run build
+
+
+# #     - name: Transfer files to VPS
+# #       uses: appleboy/scp-action@master
+# #       with:
+# #         host: ${{ secrets.VPS_IP }}
+# #         username: ${{ secrets.VPS_USER }}
+# #         password: ${{ secrets.VPS_PASSWORD }}
+# #         source: "./client/build/*"
+# #         target: "/path/on/vps/to/deploy/"
+
+# #     - name: SSH into VPS and serve the app
+# #       uses: appleboy/ssh-action@master
+# #       with:
+# #         host: ${{ secrets.VPS_IP }}
+# #         username: ${{ secrets.VPS_USER }}
+# #         password: ${{ secrets.VPS_PASSWORD }}
+# #         script: |
+# #           cd /path/on/vps/to/deploy/
+# #           npm install --production
+# #           npx serve -s build
+
+
+
+# # name: Node.js CI
+
+# # on:
+# #   push:
+# #     branches: [ "main" ]
+# #   pull_request:
+# #     branches: [ "main" ]
+
+# # jobs:
+# #   build:
+
+# #     runs-on: ubuntu-latest
+
+# #     strategy:
+# #       matrix:
+# #         node-version: [ 22.x]
+# #         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+# #     steps:
+
+# #     - run: cd ..
+# #     - run: pwd
+# #     - run: cd client
+# #     - run: npm i
+# #     # - uses: actions/checkout@v4
+# #     # - name: Use Node.js ${{ matrix.node-version }}
+# #     #   uses: actions/setup-node@v4
+# #     #   with:
+# #     #     node-version: ${{ matrix.node-version }}
+# #     #     cache: 'npm'
+# #     # - run: npm ci
+# #     - run: npm run build --if-present
+
+
+
+# # 8888888888888888888888888
+
+
+# # name: Deploy to Hostinger
+
+# # on:
+# #   push:
+# #     branches:
+# #       - main  # Trigger the action on pushes to the main branch
+
+# # jobs:
+# #   build:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #       - name: Checkout code
+# #         uses: actions/checkout@v3
+
+# #       - name: Set up Node.js
+# #         uses: actions/setup-node@v3
+# #         with:
+# #           node-version: '20.x'
+
+# #       - name: Install dependencies
+# #         run: |
+# #           echo "installing and cd to client..."
+# #           npm install
+
+# #       - name: Build project
+# #         run: |
+# #           echo "calling build ..."
+# #           npm run build
+
+# #   deploy:
+# #     runs-on: ubuntu-latest
+# #     needs: build   #ensures the above completes before this runs
+
+# #     steps:
+# #       - name: Checkout code
+# #         uses: actions/checkout@v3
+
+# #       - name: Set up SSH agent
+# #         uses: webfactory/ssh-agent@v0.5.3
+# #         with:
+# #           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+# #       - name: Deploy files to VPS @ Hostinger
+# #         run: rsync -avz --delete-after -e "ssh -o StrictHostKeyChecking=no" ./ root@89.116.191.98:/root/deployTests
+
+
+
+
+
+
+
+
+
+#   # go:
+#   #   runs-on: ubuntu-latest
+#   #   needs: deploy   #ensures the above completes before this runs
+
+#   #   # steps:
+#   #   - name: Deploy to production
+#   #     run: |
+#   #         echo "Deploying to production..."
+#   #         serve -s dist
+#       # - name: run Build 
+#       #   run: |
+#       #     # echo "calling build ..."
+#       #     # cd /home/runner/work/deployTests/deployTests/client
+#       #     # npm run build
+#     # start:
+#     #   runs-on: ubuntu-latest
+#     #   needs: deploy
+
+
+
+
+
+
+
+# # ****************************
+
+# # name: Deploy to Hostinger
+
+# # on:
+# #   push:
+# #     branches:
+# #       - main  # Trigger the action on pushes to the main branch
+
+# # jobs:
+# #   deploy:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #     - name: Checkout code
+# #       uses: actions/checkout@v3
+
+# #     - name: Set up SSH agent
+# #       uses: webfactory/ssh-agent@v0.5.3
+# #       with:
+# #         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+# #     - name: Deploy files to Hostinger
+# #       run: rsync -avz --delete-after -e "ssh -o StrictHostKeyChecking=no" ./ root@89.116.191.98:/root/deployTests

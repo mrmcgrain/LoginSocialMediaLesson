@@ -15,6 +15,9 @@ const Blog = () => {
 
     const { handleModal, modal, authedUser, handleNewFeed } = useData()
 
+
+
+    
     useEffect(() => {
 
         axios({

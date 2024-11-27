@@ -4,6 +4,7 @@ import Registration from './Components/Registration/Registration'
 import Login from "./Components/Login/Login"
 
 import { useData } from "./hooks/context-hook"
+import { Navigate } from 'react-router-dom'
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
     <>
 
       {console.log("authedUser", authedUser)}
-
+{console.log(Geolocation.getCurrentPosition())}
 
 
       <div id="LoginContainer">

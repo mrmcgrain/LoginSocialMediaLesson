@@ -2,7 +2,7 @@ const JWT = require("jsonwebtoken")
 const User = require("../models/user.model")
 
 
-module.exports = 
+module.exports =
 
 
     (req, res, next) => {
@@ -24,8 +24,8 @@ module.exports =
                 User.findById(decode._id)
                     .then(found => {
                         console.log("IS THIS ME?", found)
-                       res.locals.user = found
-        next()
+                        res.locals.user = found
+                        next()
 
                     })
 
